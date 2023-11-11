@@ -1,5 +1,7 @@
 import express from "express";
 import Task from "../models/Tasks.js";
+import auth from "../middleware/auth.js";
+import User from "../models/User.js";
 
 const router = express.Router();
 
@@ -18,11 +20,22 @@ router.get("/", async (req, res) => {
 // @route   POST api/tasks
 // @desc    Create a new task
 // @access  Public
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { authorOfTask, task } = req.body;
-
+  console.log(req.body);
+  console.log(req.user.id);
   try {
-    const newTask = new Task({ authorOfTask, task });
+    const user = await User.findById(req.user.id).select("-password");
+    console.log(user);
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    const newTask = new Task({
+      authorOfTask: user.name,
+      task,
+    });
+
     const savedTask = await newTask.save();
     res.status(201).json(savedTask);
   } catch (err) {

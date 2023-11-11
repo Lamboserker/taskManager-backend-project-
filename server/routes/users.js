@@ -15,7 +15,7 @@ router.post("/register", async (req, res) => {
   try {
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(409).json({ msg: "User already exists" }); // 409 Conflict
+      return res.status(409).json({ msg: "User already exists" });
     }
 
     user = new User({
@@ -32,16 +32,17 @@ router.post("/register", async (req, res) => {
     const payload = {
       user: {
         id: user.id,
+        name: user.name // Include the user's name in the token payload if needed
       },
     };
 
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRE || '10h' }, // Use environment variable for expiration
+      { expiresIn: process.env.JWT_EXPIRE },
       (err, token) => {
         if (err) throw err;
-        res.status(201).json({ token }); // 201 Created
+        res.status(201).json({ token });
       }
     );
   } catch (err) {
@@ -49,7 +50,6 @@ router.post("/register", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
 // @route GET api/users
 // @desc Get all users
 // @access Public
@@ -89,7 +89,7 @@ router.post("/login", async (req, res) => {
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRE || '10h' },
+      { expiresIn: process.env.JWT_EXPIRE || "10h" },
       (err, token) => {
         if (err) throw err;
         res.json({ token });
@@ -112,6 +112,13 @@ router.get("/me", auth, async (req, res) => {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
+});
+
+// @route GET api/users/validate-token
+// @desc Validate user's token
+// @access Private
+router.get("/validate-token", auth, (req, res) => {
+  res.json({ valid: true, userId: req.user.id });
 });
 
 export default router;
