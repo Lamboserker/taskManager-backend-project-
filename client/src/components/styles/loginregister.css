@@ -1,13 +1,4 @@
-body {
-  background: linear-gradient(to bottom, #ff69b4, #87ceeb);
-  background-size: cover;
-  background-attachment: fixed;
-  margin: 0;
-  height: 100vh; /* Vollbildhöhe */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .formsbody {
   width: 400px;
   height: 400px;
@@ -24,7 +15,7 @@ body {
   align-items: center;
   justify-content: center;
 }
-form {
+.form {
   width: calc(
     100% - 40px
   ); /* 100% der Breite von .forms-body minus dem Padding */
@@ -33,13 +24,13 @@ form {
   flex-direction: column;
   align-items: center;
 }
-label,
-input,
+.label,
+.input,
 .btn-12 {
   width: 100%; /* Elemente füllen den verfügbaren Raum aus */
   margin-top: 10px; /* Vertikaler Abstand zwischen den Elementen */
 }
-input,
+.input,
 .btn-12{
   padding: 10px; /* Padding für Input und Button gleich setzen */
   border: 1px solid #ccc; /* Einheitlicher Border für Input und Button */
@@ -55,7 +46,7 @@ input,
 .btn-12:hover {
   background-color: #0056b3; /* Farbwechsel beim Hover */
 }
-h2 {
+.h2 {
   font-size: 50px;
   margin: 0;
 }
@@ -68,11 +59,11 @@ h2 {
   width: 300px;
   text-align: center;
 }
-h2 {
+.h2 {
   margin: 0;
   padding: 10px;
 }
-input[type="text"], input[type="password"] {
+.input[type="text"], .input[type="password"] {
   width: 100%;
   padding: 10px;
   margin: 5px 0;
@@ -80,7 +71,7 @@ input[type="text"], input[type="password"] {
   border-radius: 3px;
   padding-right: 5px;
   }
-input[type="submit"] {
+.input[type="submit"] {
   width: 100%;
   padding: 10px;
   background-color: #007BFF;
@@ -90,14 +81,14 @@ input[type="submit"] {
   cursor: pointer;
   margin-top: 10px;
 }
-h1 {
+.h1 {
   position: relative;
   text-align: center;
   color: #353535;
   font-size: 50px;
   font-family: "Cormorant Garamond", serif;
 }
-p {
+.p {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   text-align: center;
@@ -120,7 +111,7 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
   border: none;
   
 }
-.btn-3 span {
+.btn-3 .span {
   position: relative;
   display: block;
   width: 100%;
@@ -153,11 +144,11 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 .btn-3:hover:after {
   width: 100%;
 }
-.btn-3 span:hover{
+.btn-3 .span:hover{
    color: rgba(2,126,251,1);
 }
-.btn-3 span:before,
-.btn-3 span:after {
+.btn-3 .span:before,
+.btn-3 .span:after {
   position: absolute;
   content: "";
   left: 0;
@@ -165,17 +156,17 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
    background: rgba(2,126,251,1);
   transition: all 0.3s ease;
 }
-.btn-3 span:before {
+.btn-3 .span:before {
   width: 2px;
   height: 0%;
 }
-.btn-3 span:after {
+.btn-3 .span:after {
   width: 0%;
   height: 2px;
 }
-.btn-3 span:hover:before {
+.btn-3 .span:hover:before {
   height: 100%;
 }
-.btn-3 span:hover:after {
+.btn-3 .span:hover:after {
   width: 100%;
 }

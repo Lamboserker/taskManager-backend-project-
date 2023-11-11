@@ -133,48 +133,59 @@ const Home = () => {
 
   return (
     <>
-      <button className="logout" onClick={handleLogOut}>
-        Loggout
-      </button>
-      <section className="retro-window">
-        <div className="title-bar">
-          <div className="buttons">
-            <div className="button close"></div>
-            <div className="button minimize"></div>
-            <div className="button maximize"></div>
+      <div className="body">
+        <button className="logout" onClick={handleLogOut}>
+          Loggout
+        </button>
+        <section className="retro-window">
+          <div className="title-bar">
+            <div className="buttons">
+              <div className="button close"></div>
+              <div className="button minimize"></div>
+              <div className="button maximize"></div>
+            </div>
+            <span className="title">DashBoard - {username}</span>
           </div>
-          <span className="title">DashBoard - {username}</span>
-        </div>
-        <div className="chat-container">
-          {/* Using an unordered list to contain messages */}
-          <ul className="rounded-messages">
-            {tasks.map((task, index) => (
-              <li
-                key={index}
-                className={`message ${task.solved ? "right-msg" : "left-msg"}`}
-              >
-                {task.task} - <span>created by: {task.authorOfTask}</span>
-                <button onClick={() => markAsSolved(task._id)}>
-                  Mark as done
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <div className="chat-container scrollbar">
+            {/* Using an unordered list to contain messages */}
+            <ul className="rounded-messages">
+              {tasks.map((task, index) => (
+                <li
+                  key={index}
+                  className={`message ${
+                    task.solved ? "right-msg" : "left-msg"
+                  }`}
+                >
+                  {task.task}
+                  <span className="created-by">
+                    created by: {task.authorOfTask}
+                  </span>
+                  <span
+                    className={`check-icon ${task.solved ? "solved" : ""}`}
+                    onClick={() => markAsSolved(task._id)}
+                  >
+                    ✔
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <div className="input-container">
-          <input
-            className="input1"
-            type="text"
-            value={task}
-            onChange={handleTaskChange}
-            placeholder="Type a message..."
-          />
-          <button className="button1" onClick={submitTask}>
-            Send
-          </button>
-        </div>
-      </section>
+          <div className="input-container">
+            <input
+              className="input1"
+              type="text"
+              value={task}
+              onChange={handleTaskChange}
+              placeholder="Type a message..."
+            />
+            <button className="button1" onClick={submitTask}>
+              <span className="send-text">Send</span>
+              <span className="send-icon">📩</span>
+            </button>
+          </div>
+        </section>
+      </div>
     </>
   );
 };
