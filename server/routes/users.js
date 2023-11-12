@@ -10,7 +10,7 @@ const router = express.Router();
 // @desc Register a new user
 // @access Public
 router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, color, password } = req.body;
 
   try {
     let user = await User.findOne({ email });
@@ -21,6 +21,7 @@ router.post("/register", async (req, res) => {
     user = new User({
       name,
       email,
+      color,
       password,
     });
 

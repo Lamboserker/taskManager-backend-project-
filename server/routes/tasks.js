@@ -34,6 +34,7 @@ router.post("/", auth, async (req, res) => {
     const newTask = new Task({
       authorOfTask: user.name,
       task,
+      color: user.color,
     });
 
     const savedTask = await newTask.save();

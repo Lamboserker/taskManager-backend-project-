@@ -7,6 +7,7 @@ const Home = () => {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
   const [username, setUsername] = useState("");
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -102,6 +103,7 @@ const Home = () => {
   };
   const markAsSolved = async (taskId) => {
     const token = localStorage.getItem("token");
+    
     if (!token) {
       console.error("No token found");
       return;
@@ -151,11 +153,10 @@ const Home = () => {
             <ul className="rounded-messages">
               {tasks.map((task, index) => (
                 <li
-                  key={index}
-                  className={`message ${
-                    task.solved ? "right-msg" : "left-msg"
-                  }`}
-                >
+                key={index} 
+                className={`message ${task.solved ? "right-msg solved-task" : "left-msg"}`}
+                style={{ backgroundColor: task.solved ? 'green' : task.color || '#fff' }}
+              >
                   {task.task}
                   <span className="created-by">
                     created by: {task.authorOfTask}

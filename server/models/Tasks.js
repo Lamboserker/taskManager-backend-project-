@@ -11,7 +11,12 @@ const TaskSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  
   task: {
+    type: String,
+    required: true,
+  },
+  color: {
     type: String,
     required: true,
   },

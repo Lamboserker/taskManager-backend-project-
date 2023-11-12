@@ -2,22 +2,27 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./styles/loginregister.css";
 import { Link, useNavigate } from "react-router-dom";
+import { TwitterPicker } from "react-color";
+
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-const navigate = useNavigate();
+  const [color, setColor] = useState("#fff"); // Standardfarbe
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
+    
     event.preventDefault();
 
     try {
       const response = await axios.post(
         "http://localhost:3001/api/users/register",
         {
-          name:username,
+          name: username,
           email,
+          color,
           password,
         }
       );
@@ -39,7 +44,7 @@ const navigate = useNavigate();
   return (
     <div className="body">
       <div className="container">
-        <h2 className="regbox h2">Register</h2>
+        <h2 className="h2">Register</h2>
         <form className="form" onSubmit={handleSubmit}>
           {error && <div style={{ color: "red" }}>{error}</div>}
           <input
@@ -67,6 +72,12 @@ const navigate = useNavigate();
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+
+          <TwitterPicker
+            color={color}
+            onChangeComplete={(newColor) => setColor(newColor.hex)}
+          />
+
           <div className="frame">
             <button type="submit" className="custom-btn btn-3">
               <span>register</span>

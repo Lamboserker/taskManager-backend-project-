@@ -215,3 +215,7 @@ Not supports in Firefox and IE */
     opacity: 0.7; /* Leichte Durchsichtigkeit */
     display: block; /* Um sicherzustellen, dass es unter dem Haupttext erscheint */
   }
+
+  .solved-task {
+    background-color: green; /* Oder die gewünschte Grünton */
+  }
