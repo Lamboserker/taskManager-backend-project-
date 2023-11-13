@@ -1,221 +1,271 @@
-.body{
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(to bottom, #FF99CC, #00CCFF);
-    font-family: 'Roboto', sans-serif;
+.body {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
-/* Customize website's scrollbar like Mac OS
-Not supports in Firefox and IE */
-.scrollbar {
-    /* Hintergrund des gesamten Scrollbar-Bereichs */
-    background: transparent;
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .scrollbar::-webkit-scrollbar {
-    width: 16px; /* Breite des Scrollbars */
+  width: 16px; /* Breite des Scrollbars */
 }
 
 .scrollbar::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.5); /* leicht durchsichtiger Hintergrund */
+  background: rgba(255, 255, 255, 0.5); /* leicht durchsichtiger Hintergrund */
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-    background-color: #babac0; /* graue Farbe des Scrollbalkens */
-    border-radius: 16px; /* abgerundete Ecken */
+  background-color: #babac0; 
+  border-radius: 16px; 
 }
 
-.scrollbar::-webkit-scrollbar-button {
-    display: none; /* Scrollbar-Buttons nicht anzeigen */
-}
+
 
 .retro-window {
-    width: 700px;
-    height: 700px;
-    background-color: #0925C7;
-    border: 2px solid #ED6AE6;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column; /* Neu hinzugefügt */
+  width: 700px;
+  height: 700px;
+  background-color: rgba(33, 36, 45, 0.6);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(33, 36, 45, 0.6);
+  display: flex;
+  flex-direction: column;
 }
-
 
 .title-bar {
-    background-color:#ed6ae6;
-    color: #fff;
-    padding: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background-color: rgba(33, 36, 45, 0.6);
+  color: #fff;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .title {
-    font-weight: bold;
+  font-weight: bold;
+  
 }
 .buttons {
-    display: flex;
+  display: flex;
 }
 .button {
-    width: 12px;
-    height: 12px;
-    border-radius: 10px;
-    margin-right: 8px;
-    background-color: #FF99CC;
+  width: 12px;
+  height: 12px;
+  border-radius: 10px;
+  margin-right: 8px;
+  background-color: #ff99cc;
 }
-.button.minimize {
-    background-color: #00CCFF;
+.minimize {
+  background-color: yellow;
 }
-.button.maximize {
-    background-color: #FF66B2;
+.maximize {
+  background-color: #f96057;
+}
+
+.close {
+  background-color: green;
 }
 .chat-container {
-    max-height: calc(100vh - 120px); 
-    padding: 15px; 
-    overflow-y: scroll;
+  max-height: calc(100vh - 120px);
+  padding: 15px;
+  overflow-y: scroll;
 }
 .message {
-    padding: 13px;
-    margin-bottom: 15px;
-    border-radius: 8px;
+  padding: 13px;
+  margin-bottom: 15px;
+  border-radius: 8px;
 }
 .received {
-    background-color: #F88FF3;
+  background-color: #f88ff3;
 }
-
-
 
 .input-container {
-    margin-top: auto;
-    display: flex;
-    padding: 15px;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  position: relative; /* To position the send button inside the input */
 }
 .input1 {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    
-    margin-right: 10px;
-}
-.input1:focus {
-    outline: 2px solid purple;
-}
-.button1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #007aff; /* Apple-Button-Farbe */
-    color: #fff;
-    border: none;
-    border-radius: 13px; /* Abgerundete Ecken wie bei Apple-Buttons */
-    padding: 8px 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  flex: 1;
+  padding: 10px 45px 10px 10px; /* Right padding to make space for the button */
+  border: none;
+  border-radius: 20px;
+  margin-right: 10px;
 }
 
+.input1:focus {
+  outline: none;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%); /* Startposition rechts außerhalb des Sichtbereichs */
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0); /* Endposition */
+    opacity: 1;
+  }
+}
+.button1 {
+  position: absolute;
+  right: 40px; 
+  background-color: transparent; 
+  border: none; 
+  cursor: pointer;
+  width: auto; 
+  height: auto; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  opacity: 0; 
+  animation-name: none; 
+}
+
+.input1:not(:placeholder-shown) + .button1 {
+  display: flex;
+  animation-name: slideInFromRight; 
+  animation-duration: 0.5s; 
+  animation-fill-mode: forwards; 
+}
+
+.send-icon {
+  color: #007aff;
+  font-size: 24px; 
+  transition: transform 0.3s ease;
+}
+
+
+
+.button1:hover .send-icon {
+  transform: scale(1.3); /* Slight increase in size on hover */
+}
+
+.button1 {
+  display: none;
+}
+
+.input1:not(:placeholder-shown) + .button1 {
+  display: flex;
+}
 .button1:hover {
-    background-color: #0056b3; /* Dunklere Farbe beim Hover */
+  transform: scale(1.5);
 }
 
 .send-text {
-    margin-right: 8px; /* Abstand zwischen Text und Icon */
+  margin-right: 8px; 
 }
 
 .check-icon {
-    cursor: pointer;
-    color: grey;
-    font-size: 20px; /* Größe des Hakens anpassen */
-    margin-left: 10px; /* Abstand vom Text */
-  }
-  
-  .check-icon:hover {
-    color: green; /* Farbe beim Hovern */
-  }
-  
-  .check-icon.solved {
-    color: green; /* Farbe, wenn gelöst */
-  }
+  cursor: pointer;
+  color: grey;
+  font-size: 20px; /* Größe des Hakens anpassen */
+  margin-left: 10px; /* Abstand vom Text */
+}
+
+.check-icon:hover {
+  color: green; /* Farbe beim Hovern */
+}
+
+.check-icon.solved {
+  color: green; /* Farbe, wenn gelöst */
+}
 
 /* Message Bubbles */
 .rounded-messages li {
-    position: relative;
-    clear: both;
-    display: block;
-    height: auto;
-    width: auto;
-    max-width: 50%;
-    word-wrap: break-word;
-    word-break: keep-all;
-    font-family: sans-serif;
-    text-align: left;
-    line-height: 1.5em;
-    margin: 2px 10px;
-    padding: 10px;
-    cursor: default;
-    border-radius: 15px;
-  }
-  
-  /* Left Message Bubble */
-  .rounded-messages .left-msg {
-    float: left;
-    color: #292929;
-    background: #E3E2DF;
-  }
-  
-  .rounded-messages .left-msg::before {
-    content: "";
-    position: absolute;
-    top: 5px;
-    left: -10px;
-    border-top: 15px solid #E3E2DF;
-    border-left: 15px solid transparent;
-  }
-  
-  /* Right Message Bubble */
-  .rounded-messages .right-msg {
-    float: right;
-    color: #F8F8F8;
-    background: #27AE60;
-  }
-  
-  .rounded-messages .right-msg::before {
-    content: "";
-    position: absolute;
-    bottom: 5px;
-    right: -10px;
-    border-bottom: 15px solid #27AE60;
-    border-right: 15px solid transparent;
-  }
-  
-  
-  
-  /* Responsive Design */
-  @media screen and (max-width: 500px) {
-    .rounded-messages li {
-      max-width: 100%;
-    }
-  }
-  
+  position: relative;
+  clear: both;
+  display: block;
+  height: auto;
+  width: auto;
+  max-width: 50%;
+  word-wrap: break-word;
+  word-break: keep-all;
+  font-family: sans-serif;
+  text-align: left;
+  line-height: 1.5em;
+  margin: 2px 10px;
+  padding: 10px;
+  cursor: default;
+  border-radius: 15px;
+}
 
-  .logout{
-    margin: 2em;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
+/* Left Message Bubble */
+.rounded-messages .left-msg {
+  float: left;
+  color: #292929;
+  background: #e3e2df;
+  border-bottom-right-radius: 0;
+}
 
+.rounded-messages .left-msg::before {
+  position: absolute;
+  top: 5px;
+  left: -10px;
+  border-top: 15px solid #e3e2df;
+  border-left: 15px solid transparent;
+}
 
-  .created-by {
-    font-size: 0.8rem; /* Kleinere Schriftgröße */
-    opacity: 0.7; /* Leichte Durchsichtigkeit */
-    display: block; /* Um sicherzustellen, dass es unter dem Haupttext erscheint */
-  }
+/* Right Message Bubble */
+.rounded-messages .right-msg {
+  float: right;
+  color: #f8f8f8;
+  background: #27ae60;
+  border-bottom-left-radius: 0;
+}
 
-  .solved-task {
-    background-color: green; /* Oder die gewünschte Grünton */
+.rounded-messages .right-msg::before {
+  position: absolute;
+  bottom: 5px;
+  right: -10px;
+  border-bottom: 15px solid #27ae60;
+  border-right: 15px solid transparent;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 500px) {
+  .rounded-messages li {
+    max-width: 100%;
   }
+}
+
+.created-by {
+  font-size: 0.8rem; /* Kleinere Schriftgröße */
+  opacity: 0.7; /* Leichte Durchsichtigkeit */
+  display: block; /* Um sicherzustellen, dass es unter dem Haupttext erscheint */
+}
+
+.solved-task {
+  background-color: green; /* Oder die gewünschte Grünton */
+}
+
+.btn-11 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 2rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  background: #e0e0e0;
+  box-shadow: 20px 20px 60px #868585, -20px -20px 60px #ffffff;
+  margin: 2em;
+}

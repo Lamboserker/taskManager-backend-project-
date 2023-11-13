@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./styles/loginregister.css";
 import { Link, useNavigate } from "react-router-dom";
-import { TwitterPicker } from "react-color";
+import { ChromePicker } from "react-color";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -73,7 +73,7 @@ const Register = () => {
             required
           />
 
-          <TwitterPicker
+          <ChromePicker
             color={color}
             onChangeComplete={(newColor) => setColor(newColor.hex)}
           />

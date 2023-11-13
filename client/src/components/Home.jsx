@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import "./styles/home.css";
 
 const Home = () => {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
   const [username, setUsername] = useState("");
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,6 +70,8 @@ const Home = () => {
     fetchUserName();
   }, []);
 
+  
+
   const handleLogOut = () => {
     localStorage.removeItem("token");
     navigate("/register");
@@ -101,9 +105,10 @@ const Home = () => {
       console.error("There was an error sending the task", error);
     }
   };
+
   const markAsSolved = async (taskId) => {
     const token = localStorage.getItem("token");
-    
+
     if (!token) {
       console.error("No token found");
       return;
@@ -125,6 +130,7 @@ const Home = () => {
           if (task._id === taskId) {
             return { ...task, solved: true };
           }
+
           return task;
         })
       );
@@ -133,10 +139,44 @@ const Home = () => {
     }
   };
 
+  function isDarkColor(color) {
+    // Convert hex color to RGB
+    const hexToRgb = (hex) => {
+      let r = 0,
+          g = 0,
+          b = 0;
+      // 3 digits
+      if (hex.length === 4) {
+        r = parseInt(hex[1] + hex[1], 16);
+        g = parseInt(hex[2] + hex[2], 16);
+        b = parseInt(hex[3] + hex[3], 16);
+        // 6 digits
+      } else if (hex.length === 7) {
+        r = parseInt(hex.substring(1, 3), 16);
+        g = parseInt(hex.substring(3, 5), 16);
+        b = parseInt(hex.substring(5, 7), 16);
+      }
+      return { r, g, b };
+    };
+
+    // Calculate luminance
+    const luminance = (r, g, b) => {
+      const a = [r, g, b].map((v) => {
+        v /= 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+    };
+
+    const { r, g, b } = hexToRgb(color);
+    // A threshold of 0.5 is usually a good approximation
+    return luminance(r, g, b) < 0.5;
+  }
+
   return (
     <>
       <div className="body">
-        <button className="logout" onClick={handleLogOut}>
+        <button className="btn-11" onClick={handleLogOut}>
           Loggout
         </button>
         <section className="retro-window">
@@ -149,14 +189,24 @@ const Home = () => {
             <span className="title">DashBoard - {username}</span>
           </div>
           <div className="chat-container scrollbar">
-            {/* Using an unordered list to contain messages */}
             <ul className="rounded-messages">
               {tasks.map((task, index) => (
                 <li
-                key={index} 
-                className={`message ${task.solved ? "right-msg solved-task" : "left-msg"}`}
-                style={{ backgroundColor: task.solved ? 'green' : task.color || '#fff' }}
-              >
+                  key={index}
+                  className={`message ${
+                    task.solved ? "right-msg solved-task" : "left-msg"
+                  }`}
+                  style={{
+                    backgroundColor: task.solved
+                      ? "#008000"
+                      : task.color || "#fff", // Green color for solved tasks
+                    color: task.solved
+                      ? "white"
+                      : isDarkColor(task.color)
+                      ? "white"
+                      : "black", // White text for solved tasks
+                  }}
+                >
                   {task.task}
                   <span className="created-by">
                     created by: {task.authorOfTask}
@@ -171,7 +221,6 @@ const Home = () => {
               ))}
             </ul>
           </div>
-
           <div className="input-container">
             <input
               className="input1"
@@ -180,10 +229,11 @@ const Home = () => {
               onChange={handleTaskChange}
               placeholder="Type a message..."
             />
-            <button className="button1" onClick={submitTask}>
-              <span className="send-text">Send</span>
-              <span className="send-icon">📩</span>
-            </button>
+            {task && (
+              <button className="button1 send-icon" onClick={submitTask}>
+                <FontAwesomeIcon icon={faPaperPlane} />
+              </button>
+            )}
           </div>
         </section>
       </div>
